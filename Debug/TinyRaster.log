@@ -1,0 +1,49 @@
+﻿Build started 07/11/2016 21:51:47.
+     1>Project "D:\Ryan Lewin\Uni\Graphics 1\TinyRaster\TinyRaster\TinyRaster\TinyRaster.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Rasterizer.cpp
+         Rasterizer.cpp
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(83): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(132): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(133): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(171): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(172): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(179): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(180): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(186): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(206): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(223): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(224): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(228): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(229): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(314): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(316): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(360): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(363): warning C4018: '<': signed/unsigned mismatch
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(404): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(407): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(433): warning C4305: 'initializing': truncation from 'double' to 'float'
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(435): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(436): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(437): warning C4244: 'initializing': conversion from 'const float' to 'int', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(441): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(442): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(455): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+     1>d:\ryan lewin\uni\graphics 1\tinyraster\tinyraster\tinyraster\rasterizer.cpp(456): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Ryan Lewin\Uni\Graphics 1\TinyRaster\TinyRaster\Debug\TinyRaster.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"D:\Ryan Lewin\Uni\Graphics 1\TinyRaster\TinyRaster\Debug\TinyRaster.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Ryan Lewin\Uni\Graphics 1\TinyRaster\TinyRaster\Debug\TinyRaster.lib" /MACHINE:X86 Debug\TinyRaster.res
+         Debug\AssignmentTests.obj
+         Debug\Framebuffer.obj
+         Debug\TestApplication.obj
+         Debug\AppWindow.obj
+         Debug\Rasterizer.obj
+         Debug\TinyRasterMain.obj
+         Debug\Vector2.obj
+         Debug\Vector3.obj
+         Debug\Vector4.obj
+         TinyRaster.vcxproj -> D:\Ryan Lewin\Uni\Graphics 1\TinyRaster\TinyRaster\Debug\TinyRaster.exe
+     1>Done Building Project "D:\Ryan Lewin\Uni\Graphics 1\TinyRaster\TinyRaster\TinyRaster\TinyRaster.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.74
