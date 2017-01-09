@@ -283,9 +283,8 @@ typedef struct _EdgeLUT
 	Vector2 ver1;
 	Vector2 ver2;
 	float gradient;
+	Colour4 colour;
 } EdgeLUT;
-
-
 
 void Rasterizer::ScanlineFillPolygon2D(const Vertex2d * vertices, int count)
 {
@@ -320,7 +319,6 @@ void Rasterizer::ScanlineFillPolygon2D(const Vertex2d * vertices, int count)
 		if (yMin < 1)
 			yMin = 1;
 
-
 		edge.gradient = ((float)vertices[i].position[0] - (float)vertices[i + 1].position[0]) / ((float)vertices[i].position[1] - (float)vertices[i + 1].position[1]);
 		if (edge.gradient == -INFINITY)
 			edge.gradient = 0;
@@ -348,7 +346,6 @@ void Rasterizer::ScanlineFillPolygon2D(const Vertex2d * vertices, int count)
 				Vector2 temp(Edges[e].ver1);
 				Edges[e].ver1 = Edges[e].ver2;
 				Edges[e].ver2 = temp;
-				
 				
 				if (Edges[e].gradient == -INFINITY)
 				{
@@ -420,6 +417,131 @@ void Rasterizer::ScanlineInterpolatedFillPolygon2D(const Vertex2d * vertices, in
 	//Note: mFillMode is set to INTERPOLATED_FILL
 	//		This exercise will be more straightfoward if Ex 1.3 has been implemented in DrawLine2D
 	//Use Test 7 to test your solution
+	int yMax = 0;
+	int yMin = 1000;
+	Colour4 colour = vertices[0].colour;
+	std::vector<EdgeLUT> Edges;
+
+	for (int i = 0; i < count - 1; i++)
+	{
+		EdgeLUT edge;
+		if (vertices[i].position[1] > yMax)
+			yMax = vertices[i].position[1];
+		if (vertices[i].position[1] < yMin)
+			yMin = vertices[i].position[1];
+
+		if (yMax > mHeight)
+			yMax = mHeight - 1;
+		if (yMin < 1)
+			yMin = 1;
+
+		edge.gradient = ((float)vertices[i].position[0] - (float)vertices[i + 1].position[0]) / ((float)vertices[i].position[1] - (float)vertices[i + 1].position[1]);
+		if (edge.gradient == -INFINITY)
+			edge.gradient = 0;
+		edge.ver1 = vertices[i].position;
+		edge.ver2 = vertices[i + 1].position;
+		edge.colour = vertices[i].colour;
+		Edges.push_back(edge);
+	}
+	EdgeLUT edge;
+	edge.ver1 = vertices[count - 1].position;
+	edge.ver2 = vertices[0].position;
+	edge.gradient = ((float)edge.ver1[0] - (float)edge.ver2[0]) / ((float)edge.ver1[1] - (float)edge.ver2[1]);
+	edge.colour = vertices[count - 1].colour;
+	if (edge.gradient == -INFINITY)
+		edge.gradient = 0;
+	Edges.push_back(edge);
+
+	for (int l = yMin; l < yMax; l++)
+	{
+		for (int e = 0; e < count; e++)
+		{
+			bool swapEdges = Edges[e].ver1[1] > Edges[e].ver2[1] ? true : false;
+
+			if (swapEdges)
+			{
+				Vector2 temp(Edges[e].ver1);
+				Edges[e].ver1 = Edges[e].ver2;
+				Edges[e].ver2 = temp;
+
+				if (Edges[e].gradient == -INFINITY)
+					Edges[e].gradient = 0;
+			}
+
+			if ((Edges[e].ver1[1] <= l && l <= Edges[e].ver2[1]))
+			{
+				int x = Edges[e].ver1[0] + ((l - Edges[e].ver1[1]) * Edges[e].gradient);
+
+				bool duplicate = false;
+				for (int i = 0; i < mScanlineLUT[l].size(); i++)
+				{
+					if (mScanlineLUT[l][i].pos_x == x)
+					{
+						if (Edges[e - 1].ver1[1] < Edges[e].ver1[1])
+						{
+							if (Edges[e].ver1[1] < Edges[e].ver2[1])
+							{
+								duplicate = true;
+								break;
+							}
+						}
+						else
+						{
+							if (Edges[e].ver1[1] > Edges[e].ver2[1])
+							{
+								duplicate = true;
+								break;
+							}
+						}
+					}
+				}
+
+				if (mFillMode == INTERPOLATED_FILLED)
+				{
+					Vector2 temp;
+					temp[0] = l;
+					temp[1] = x;
+
+					Vertex2d temp2;
+					temp2.position = Edges[e].ver1;
+					Vertex2d temp3;
+					temp3.position = Edges[e].ver2;
+
+					float t = abs(temp2.position.Norm() - temp.Norm()) / abs(temp3.position.Norm() - temp2.position.Norm());
+
+					if (e + 1 == count)
+						colour = Edges[0].colour * t + Edges[e].colour * (1 - t);
+					else
+						colour = Edges[e+1].colour * t + Edges[e].colour * (1 - t);
+				}
+				ScanlineLUTItem scanl = { colour, x };
+
+				!duplicate ? mScanlineLUT[l].push_back(scanl) : duplicate = false;
+			}
+		}
+
+		std::sort(mScanlineLUT[l].begin(), mScanlineLUT[l].end(), [](ScanlineLUTItem a, ScanlineLUTItem b) {return a.pos_x < b.pos_x; });
+	}
+
+	for (int scanline = yMin; scanline < yMax; scanline++)
+	{
+		int n = mScanlineLUT[scanline].size();
+		if (n > 1)
+		{
+			for (int x = 0; x < n - 1; x += 2)
+			{
+				Vertex2d temp;
+				temp.colour = mScanlineLUT[scanline][x].colour;
+				temp.position = Vector2(mScanlineLUT[scanline][x].pos_x, scanline);
+				Vertex2d temp2;
+				temp2.colour = mScanlineLUT[scanline][x + 1].colour;
+				temp2.position = Vector2(mScanlineLUT[scanline][x + 1].pos_x, scanline);
+
+				DrawLine2D(temp, temp2);
+			}
+		}
+	}
+	ClearScanlineLUT();
 }
 
 void Rasterizer::DrawCircle2D(const Circle2D & inCircle, bool filled)
@@ -455,6 +577,9 @@ void Rasterizer::DrawCircle2D(const Circle2D & inCircle, bool filled)
 	temp2.position[0] = x + radius;
 	temp2.position[1] = y;
 	DrawLine2D(temp, temp2);
+	/*temp2.position[0] = inCircle.centre[0];
+	temp2.position[1] = inCircle.centre[1];
+	DrawLine2D(temp, temp2);*/
 }
 
 Framebuffer *Rasterizer::GetFrameBuffer() const
